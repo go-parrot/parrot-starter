@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package helloworld.greeter.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+option go_package="github.com/go-parrot/parrot-starter/api/helloworld/greeter/v1;v1";
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+    option (google.api.http) = {
+        get: "/v1/helloworld"
+        body: "*"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1 [(validate.rules).string.min_len = 3];
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
